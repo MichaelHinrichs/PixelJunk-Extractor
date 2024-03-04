@@ -1,4 +1,5 @@
-﻿using System.IO;
+//Written for PixelJunk Shooter. https://store.steampowered.com/app/255870/
+using System.IO;
 using System.IO.Compression;
 
 namespace PixelJunk_Extractor
