@@ -15,7 +15,7 @@ namespace PixelJunk_Extractor
             SUBFILE[] subfiles = new SUBFILE[br.ReadInt32()];
             for (int i = 0; i < subfiles.Length; i++)
             {
-                subfiles[i].sizeUncompressed = br.ReadInt32();//unknown
+                subfiles[i].sizeUncompressed = br.ReadInt32();
                 subfiles[i].sizeCompressed = br.ReadInt32();
                 subfiles[i].offset = br.ReadInt32();
                 br.ReadInt32();//unknown
