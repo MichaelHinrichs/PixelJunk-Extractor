@@ -8,9 +8,9 @@ namespace PixelJunk_Extractor
     {
         static void Main(string[] args)
         {
-            using FileStream pkiwin = File.OpenRead(args[0] + "//shooter.pkiwin");
-            BinaryReader br = new(pkiwin);
-            Directory.CreateDirectory(args[0] + "//shooter");
+            BinaryReader br = new(File.OpenRead(Path.GetDirectoryName(args[0]) + "//" + Path.GetFileNameWithoutExtension(args[0]) + ".pkiwin"));
+            string path = Path.GetDirectoryName(args[0]);
+            Directory.CreateDirectory(path + "//" + Path.GetFileNameWithoutExtension(args[0]));
             br.BaseStream.Position = 8;
             SUBFILE[] subfiles = new SUBFILE[br.ReadInt32()];
             for (int i = 0; i < subfiles.Length; i++)
@@ -21,12 +21,12 @@ namespace PixelJunk_Extractor
                 br.ReadInt32();//unknown
             }
             int n = 0;
-            using FileStream pkdwin = File.OpenRead(args[0] + "//shooter.pkdwin");
+            using FileStream pkdwin = File.OpenRead(path + "//" + Path.GetFileNameWithoutExtension(args[0]) + ".pkdwin");
             foreach (SUBFILE sub in subfiles)
             {
                 br = new(pkdwin);
                 br.BaseStream.Position = sub.offset;
-                using FileStream FS = File.Create(args[0] + "//shooter//" + n);
+                using FileStream FS = File.Create(path + "//" + Path.GetFileNameWithoutExtension(args[0]) + "//" + n);
                 BinaryWriter bw = new(FS);
 
                 MemoryStream ms = new();
@@ -42,6 +42,7 @@ namespace PixelJunk_Extractor
             br.Close();
         }
     }
+
     struct SUBFILE
     {
         public int sizeUncompressed;
